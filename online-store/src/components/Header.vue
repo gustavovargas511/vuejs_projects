@@ -22,7 +22,7 @@ const total = computed(()=>{
 /*************** */
 /**END Functions */
 
-defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-item"]);
+defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-item", "c-empty-cart"]);
 </script>
 
 <template>
@@ -98,7 +98,8 @@ defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-ite
                 <p class="text-end">
                   Total pagar: <span class="fw-bold">${{ total }}</span>
                 </p>
-                <button class="btn btn-dark w-100 mt-3 p-2">
+                <button class="btn btn-dark w-100 mt-3 p-2"
+                        @click="$emit('c-empty-cart')">
                   Vaciar Carrito
                 </button>
               </div>

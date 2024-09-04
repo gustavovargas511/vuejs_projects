@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, watch } from "vue";
 import { db } from "./data/items";
 import Item from "./components/Item.vue";
 import Header from "./components/Header.vue";
@@ -11,9 +11,26 @@ const cart = ref([]);
 
 const headerItem = ref({});
 
+watch(
+  cart,
+  () => {
+    // console.log('Changed!')
+    cartLocalStorage();
+  },
+  {
+    deep: true,
+  }
+);
+
 onMounted(() => {
   items.value = db;
   headerItem.value = db[3];
+
+  const cartStorage = localStorage.getItem("cart");
+
+  if (cartStorage) {
+    cart.value = JSON.parse(cartStorage);
+  }
 });
 
 /**   FUNCTIONS */
@@ -31,6 +48,8 @@ const addToCart = (item) => {
     cart.value.push(item);
     // console.table(cart.value);
   }
+
+  // cartLocalStorage(); //calls moved to watch
 };
 
 const decreaseQty = (id) => {
@@ -38,12 +57,16 @@ const decreaseQty = (id) => {
   const index = cart.value.findIndex((product) => product.id === id);
   if (cart.value[index].qty <= 1) return;
   cart.value[index].qty--;
+
+  // cartLocalStorage(); //calls moved to watch
 };
 
 const increaseQty = (id) => {
   // console.log('Plus one', id)
   const index = cart.value.findIndex((product) => product.id === id);
   cart.value[index].qty++;
+
+  // cartLocalStorage(); //calls moved to watch
 };
 
 const deleteItem = (id) => {
@@ -51,13 +74,20 @@ const deleteItem = (id) => {
   // const index = cart.value.findIndex((product) => product.id === id);
   // cart.value.splice(index, 1);
 
-  cart.value = cart.value.filter(item => item.id !== id)
+  cart.value = cart.value.filter((item) => item.id !== id);
 
+  // cartLocalStorage(); //calls moved to watch
 };
 
 const emptyCart = () => {
   cart.value.length = 0;
-}
+};
+
+//**LocalStorage Functions */
+const cartLocalStorage = () => {
+  localStorage.setItem("cart", JSON.stringify(cart.value));
+};
+/************************* */
 
 /**END FUNCTIONS */
 </script>
