@@ -31,7 +31,7 @@ defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-ite
       <div class="row justify-content-center justify-content-md-between">
         <div class="col-8 col-md-3">
           <a href="index.html">
-            <img class="img-fluid" src="../../img/logo.svg" alt="imagen logo" />
+            <img class="img-fluid" src="/img/logo.svg" alt="imagen logo" />
           </a>
         </div>
         <nav
@@ -40,7 +40,7 @@ defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-ite
           <div class="carrito">
             <img
               class="img-fluid"
-              src="../../img/carrito.png"
+              src="/img/carrito.png"
               alt="imagen carrito"
             />
 
@@ -129,7 +129,7 @@ defineEmits([ "c-add-to-cart", "c-increase-qty", "c-decrease-qty", "c-delete-ite
 
     <img
       class="header-item"
-      src="../../img/header_item.png"
+      src="/img/header_item.png"
       alt="imagen header"
     />
   </header>
