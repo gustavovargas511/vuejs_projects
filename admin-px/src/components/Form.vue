@@ -5,18 +5,19 @@ import Alert from "./Alert.vue";
 // const px_name = ref("");
 
 /** Vars */
-const px_data = reactive({
-  name: "",
-  parentName: "",
-  parentEmail: "",
-  date: "",
-  comments: "",
-});
 
 const alert_mgs = reactive({
   msgType: "",
   msgText: "",
 });
+
+defineEmits([
+  "update:name",
+  "update:parent-name",
+  "update:parent-email",
+  "update:date",
+  "update:comments",
+]);
 /**END Vars */
 
 /** Functions */
@@ -59,7 +60,6 @@ const validateForm = () => {
           type="text"
           placeholder="Px Name"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
-          v-model="px_data.name"
         />
       </div>
       <div class="mb-5">
@@ -73,7 +73,6 @@ const validateForm = () => {
           type="text"
           placeholder="Px Parent Name"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
-          v-model="px_data.parentName"
         />
       </div>
       <div class="mb-5">
@@ -87,7 +86,6 @@ const validateForm = () => {
           type="email"
           placeholder="Px Parent Email"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
-          v-model="px_data.parentEmail"
         />
       </div>
       <div class="mb-5">
@@ -100,7 +98,6 @@ const validateForm = () => {
           id="register-date"
           type="date"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
-          v-model="px_data.date"
         />
       </div>
       <div class="mb-5">
@@ -111,7 +108,6 @@ const validateForm = () => {
           id="comments"
           placeholder="Important extra information"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400 h-28"
-          v-model="px_data.comments"
         />
       </div>
       <input
