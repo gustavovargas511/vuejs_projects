@@ -1,8 +1,10 @@
 <script setup>
 import { ref, reactive } from "vue";
+import Alert from "./Alert.vue";
 
 // const px_name = ref("");
 
+/** Vars */
 const px_data = reactive({
   name: "",
   parentName: "",
@@ -11,6 +13,13 @@ const px_data = reactive({
   comments: "",
 });
 
+const alert_mgs = reactive({
+  msgType: "",
+  msgText: "",
+});
+/**END Vars */
+
+/** Functions */
 const validateForm = () => {
   // if ([px_data.name, px_data.parentEmail].includes("")) {
   //   console.log("Empty fields...");
@@ -19,12 +28,15 @@ const validateForm = () => {
 
   /**Above code its same as: */
   if (Object.values(px_data).includes("")) {
-    console.log("Please fill in all fields");
+    // console.log("Please fill in all fields");
+    alert_mgs.msgText = "All fields are mandatory";
+    alert_mgs.msgType = "Error";
     return;
   }
 
   console.log("Adding...");
 };
+/** END Functions */
 </script>
 
 <template>
@@ -33,6 +45,7 @@ const validateForm = () => {
     <p class="text-lg text-center mt-5 mb-10">
       Adding and administration of Px
     </p>
+    <Alert v-if="alert_mgs.msgText" :alertmsg="alert_mgs" />
     <form
       class="bg-white shadow-md rounded-lg py-10 px-5"
       v-on:submit.prevent="validateForm"
