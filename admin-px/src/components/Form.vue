@@ -11,12 +11,36 @@ const alert_mgs = reactive({
   msgText: "",
 });
 
-defineEmits([
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
+  parentName: {
+    type: String,
+    required: true,
+  },
+  parentEmail: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: String,
+    required: true,
+  },
+  comments: {
+    type: String,
+    required: true,
+  },
+});
+
+const emits = defineEmits([
   "update:name",
   "update:parent-name",
   "update:parent-email",
   "update:date",
   "update:comments",
+  "c-save-px",
 ]);
 /**END Vars */
 
@@ -28,7 +52,7 @@ const validateForm = () => {
   // console.log(px_data)
 
   /**Above code its same as: */
-  if (Object.values(px_data).includes("")) {
+  if (Object.values(props).includes("")) {
     // console.log("Please fill in all fields");
     alert_mgs.msgText = "All fields are mandatory";
     alert_mgs.msgType = "Error";
@@ -36,6 +60,8 @@ const validateForm = () => {
   }
 
   console.log("Adding...");
+
+  emits("c-save-px", 123);
 };
 /** END Functions */
 </script>
@@ -60,7 +86,9 @@ const validateForm = () => {
           type="text"
           placeholder="Px Name"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
+          @input="emits('update:name', $event.target.value)"
         />
+        <!--Var emits-->
       </div>
       <div class="mb-5">
         <label
@@ -73,7 +101,9 @@ const validateForm = () => {
           type="text"
           placeholder="Px Parent Name"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
+          @input="$emit('update:parent-name', $event.target.value)"
         />
+        <!--Linear $emit-->
       </div>
       <div class="mb-5">
         <label
@@ -86,6 +116,7 @@ const validateForm = () => {
           type="email"
           placeholder="Px Parent Email"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
+          @input="$emit('update:parent-email', $event.target.value)"
         />
       </div>
       <div class="mb-5">
@@ -98,6 +129,7 @@ const validateForm = () => {
           id="register-date"
           type="date"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
+          @input="$emit('update:date', $event.target.value)"
         />
       </div>
       <div class="mb-5">
@@ -108,6 +140,7 @@ const validateForm = () => {
           id="comments"
           placeholder="Important extra information"
           class="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400 h-28"
+          @input="$emit('update:comments', $event.target.value)"
         />
       </div>
       <input

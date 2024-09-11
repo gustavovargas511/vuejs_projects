@@ -12,6 +12,15 @@ const px_data = reactive({
 });
 
 const px_list = ref([]);
+
+const savePx = () => {
+  px_list.value.push(px_data);
+  // px_list.value.forEach((px) => console.table(px));
+};
+
+// const savePx = (num) => {
+//   console.log("Saved!", num);
+// };
 </script>
 
 <template>
@@ -26,12 +35,15 @@ const px_list = ref([]);
         v-model:parentEmail="px_data.parentEmail"
         v-model:date="px_data.date"
         v-model:comments="px_data.comments"
+        @c-save-px="savePx"
       />
       <div class="md:w-1/2 md:h-screen overflow-y-scroll">
         <h3 class="font-black text-3xl text-center">Px Control</h3>
 
         <div v-if="px_list.length > 0">
-          <div></div>
+          <div v-for="px in px_list">
+            <p>{{ px.name }}</p>
+          </div>
         </div>
         <p v-else class="mt-10 text-2xl text-center">No Px to edit</p>
       </div>
